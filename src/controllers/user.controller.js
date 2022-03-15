@@ -19,12 +19,12 @@ const list = (req, res) => {
     res.status(200).json(users);
   }).select("name email updated created");
 };
-const userByID = (rew, res, next, id) => {
+const userByID = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(404).json({ error: "User not found!" });
     }
-    rew.profile = user;
+    req.profile = user;
     next();
   });
 };
