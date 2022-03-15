@@ -23,7 +23,7 @@ const signin = (req, res) => {
 };
 
 const signout = (req, res) => {
-  res.clearCoockie("token");
+  res.clearCookie("token"); 
   res.status(200).json({ message: "User signed out." });
 };
 
@@ -33,7 +33,7 @@ const requireSignin = expressJwt({
   userProperty: "auth",
 });
 
-const hasAuthorization = (rew, res, next) => {
+const hasAuthorization = (req, res, next) => {
   const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!authorized) return res.status(403).json("User is not authorized!");
   next();
